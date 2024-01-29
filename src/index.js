@@ -49,7 +49,11 @@ const pizzaData = [
 
 
 function App() {
-    return <div className='container'><Header /><Menu /> <Footer /></div>
+    return <div className='container'>
+        <Header />
+        <Menu />
+        <Footer />
+    </div>
 }
 
 function Header() {
@@ -57,25 +61,31 @@ function Header() {
 }
 
 function Menu() {
-    return <main className='menu'>
-        <h2>Our Menu </h2>
-        <Pizza price={6} name='Focaccia' ingredients='Bread with italian olive oil and rosemary' photoName='pizzas/focaccia.jpg' />
-        <Pizza price={10} name='Pizza Margherita' ingredients='Tomato and mozarella' photoName='pizzas/margherita.jpg' />
-    </main>
+    return (
+        <main className='menu'>
+            <h2>Our Menu </h2>
+            <ul className='pizzas'>
+                {pizzaData.map(el => <Pizza pizzaObj={el} key={el.name} />)}
+            </ul>
+        </main>
+    )
 }
 
 function Pizza(props) {
 
-    console.log(props);
+    // console.log(props);
 
-    return <div className='pizza'>
-        <img src={props.photoName} alt={props.name} />
-        <div>
-            <h3>{props.name}</h3>
-            <p>{props.ingredients}</p>
-            <span>${props.price}:00</span>
-        </div>
-    </div>
+    return (
+        <li className='pizza'>
+            <img src={props.pizzaObj.photoName} alt={props.pizzaObj.name} />
+            <div>
+                <h3>{props.pizzaObj.name}</h3>
+                <p>{props.pizzaObj.soldOut}</p>
+                <p>{props.pizzaObj.ingredients}</p>
+                <span>${props.pizzaObj.price}:00</span>
+            </div>
+        </li>
+    )
 }
 
 function Footer() {
