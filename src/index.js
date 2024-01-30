@@ -47,7 +47,6 @@ const pizzaData = [
     },
 ];
 
-
 function App() {
     return <div className='container'>
         <Header />
@@ -61,12 +60,18 @@ function Header() {
 }
 
 function Menu() {
+    const pizzas = pizzaData;
+    const pizzasNo = pizzas.length;
+
     return (
         <main className='menu'>
             <h2>Our Menu </h2>
-            <ul className='pizzas'>
-                {pizzaData.map(el => <Pizza pizzaObj={el} key={el.name} />)}
-            </ul>
+
+            {pizzasNo > 0 && (
+                <ul className='pizzas'>
+                    {pizzas.map(el => <Pizza pizzaObj={el} key={el.name} />)}
+                </ul>
+            )}
         </main>
     )
 }
@@ -90,17 +95,28 @@ function Pizza(props) {
 
 function Footer() {
     const hour = new Date().getHours();
-    const openMsg = "We're currently open!";
-    const closeMsg = "Sorry we're closed.";
-    const closeHrs = 22;
     const openHrs = 8;
-
+    const closeHrs = 23;
+    const openMsg = `We're open until ${closeHrs}:00. Come visit us or order online.`;
+    const closeMsg = `Sorry we're closed. We gonna open at ${openHrs}:00!`;
     const isOpen = hour >= openHrs && hour <= closeHrs;
 
-    // hour >= openHrs && hour <= closeHrs ? alert(openMsg) : alert(closeMsg)
-
-    return <footer className='footer'>{new Date().toLocaleTimeString()}. {openMsg}</footer>
-    // return React.createElement('footer', null, "We're currently open!")
+    return (
+        <footer className='footer'>
+            {isOpen ? (
+                <div className='order'>
+                    <p>{openMsg}</p>
+                    <button className='btn'>
+                        Order
+                    </button>
+                </div>
+            ) : (
+                <div className='order'>
+                    <p>{closeMsg}</p>
+                </div>
+            )}
+        </footer>
+    )
 }
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
