@@ -75,10 +75,14 @@ function Menu() {
         <main className='menu'>
             <h2>Our Menu </h2>
 
+
             {pizzasNo > 0 && (
-                <ul className='pizzas'>
-                    {pizzas.map(el => <Pizza pizzaObj={el} key={el.name} />)}
-                </ul>
+                <>
+                    <p>Authenic italian cuisine. 6 creative dishes to choose from. All from our stone oven, all organic, all delicious.</p>
+                    <ul className='pizzas'>
+                        {pizzas.map(el => <Pizza pizzaObj={el} key={el.name} />)}
+                    </ul>
+                </>
             )}
         </main>
     )
