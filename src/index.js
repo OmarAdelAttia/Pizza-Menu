@@ -48,15 +48,23 @@ const pizzaData = [
 ];
 
 function App() {
-    return <div className='container'>
-        <Header />
-        <Menu />
-        <Footer />
-    </div>
+    return (
+        <div className='container'>
+            <Header />
+            <Menu />
+            <Footer />
+        </div>
+    )
 }
 
 function Header() {
-    return <header className='header'><h1>Fast React Pizza Co.</h1></header>
+    return (
+        <header className='header'>
+            <h1>
+                Fast React Pizza Co.
+            </h1>
+        </header>
+    )
 }
 
 function Menu() {
@@ -76,20 +84,20 @@ function Menu() {
     )
 }
 
-function Pizza(props) {
+function Pizza({ pizzaObj }) {
 
-    console.log(props);
+    console.log(pizzaObj);
 
-    if (props.pizzaObj.soldOut) return null;
+    if (pizzaObj.soldOut) return null;
 
     return (
         <li className='pizza'>
-            <img src={props.pizzaObj.photoName} alt={props.pizzaObj.name} />
+            <img src={pizzaObj.photoName} alt={pizzaObj.name} />
             <div>
-                <h3>{props.pizzaObj.name}</h3>
-                {/* <p>{props.pizzaObj.soldOut}</p> */}
-                <p>{props.pizzaObj.ingredients}</p>
-                <span>${props.pizzaObj.price}:00</span>
+                <h3>{pizzaObj.name}</h3>
+                {/* <p>{pizzaObj.soldOut}</p> */}
+                <p>{pizzaObj.ingredients}</p>
+                <span>${pizzaObj.price}:00</span>
             </div>
         </li>
     )
@@ -104,7 +112,7 @@ function Footer() {
 
     return (
         <footer className='footer'>
-            {!isOpen ? <Order closeHour={closeHrs} /> : (
+            {!isOpen ? <Order closeHour={closeHrs} openHour={openHrs} /> : (
                 <div className='order'>
                     <p>{closeMsg}</p>
                 </div >
@@ -114,11 +122,11 @@ function Footer() {
     )
 }
 
-function Order(props) {
+function Order({ closeHour, openHour }) {
 
-    console.log(props);
+    console.log(closeHour);
 
-    const openMsg = `We're open until ${props.closeHour}:00. Come visit us or order online.`;
+    const openMsg = `We're open from ${openHour}:00 until ${closeHour}:00. Come visit us or order online.`;
 
     return (
         <div className='order'>
