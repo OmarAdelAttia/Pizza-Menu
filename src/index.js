@@ -99,25 +99,34 @@ function Footer() {
     const hour = new Date().getHours();
     const openHrs = 8;
     const closeHrs = 23;
-    const openMsg = `We're open until ${closeHrs}:00. Come visit us or order online.`;
     const closeMsg = `Sorry we're closed. We gonna open at ${openHrs}:00!`;
     const isOpen = hour >= openHrs && hour <= closeHrs;
 
     return (
         <footer className='footer'>
-            {isOpen ? (
-                <div className='order'>
-                    <p>{openMsg}</p>
-                    <button className='btn'>
-                        Order
-                    </button>
-                </div>
-            ) : (
+            {!isOpen ? <Order closeHour={closeHrs} /> : (
                 <div className='order'>
                     <p>{closeMsg}</p>
-                </div>
-            )}
-        </footer>
+                </div >
+            )
+            }
+        </footer >
+    )
+}
+
+function Order(props) {
+
+    console.log(props);
+
+    const openMsg = `We're open until ${props.closeHour}:00. Come visit us or order online.`;
+
+    return (
+        <div className='order'>
+            <p>{openMsg}</p>
+            <button className='btn'>
+                Order
+            </button>
+        </div>
     )
 }
 
